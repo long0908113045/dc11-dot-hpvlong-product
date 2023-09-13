@@ -4,11 +4,17 @@ resource "aws_security_group" "devops_rds_security_group" {
 
   // Define your inbound and outbound rules as needed
   // Example: Allow MySQL traffic from the EC2 instance
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
   ingress {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = [data.terraform_remote_state.dc11-dot-hpvlong-product-terraform-state.outputs.devops_private_subnets[0].cidr_block] # Assuming the first private subnet
+    cidr_blocks = data.terraform_remote_state.dc11-dot-hpvlong-product-terraform-state.outputs.devops_public_subnets[*].cidr_block # Assuming the first private subnet
   }
   tags = {
     Name = "devops_rds_security_group"

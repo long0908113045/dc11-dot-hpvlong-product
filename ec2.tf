@@ -24,14 +24,13 @@ resource "aws_security_group" "devops_ec2_security_group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  // Define your inbound and outbound rules as needed
-  // Example: Allow outbound traffic to the RDS instance
   egress {
     from_port   = 0
-    to_port     = 65535
-    protocol    = "tcp"
-    cidr_blocks = [data.terraform_remote_state.dc11-dot-hpvlong-product-terraform-state.outputs.devops_public_subnets[0].cidr_block]
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
+
   tags = {
     Name = "devops_ec2_security_group"
   }
