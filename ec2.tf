@@ -16,8 +16,8 @@ resource "aws_security_group" "devops_ec2_security_group" {
 }
 
 resource "aws_instance" "devops_ec2" {
-  ami           = "ami-0c55b159cbfafe1f0" # Ubuntu 20.04 LTS
-  instance_type = "ami-0370427aca55b362e" # Smallest possible size
+  ami           = "ami-0df7a207adb9748c7" # ubuntu-jammy-22.04-amd64-server-20230516
+  instance_type = "t2.micro" # Smallest possible size
   subnet_id     = data.terraform_remote_state.dc11-dot-hpvlong-product-terraform-state.outputs.devops_public_subnets[0].id # Assuming the first public subnet
 
   ebs_block_device {
